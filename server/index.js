@@ -13,6 +13,10 @@ const io = socketio(server);
 io.on('connection',(socket)=>{
     console.log('A user joined the connection ');
 
+    socket.on('join',({name, room}) => {
+        console.log(name, room);}
+        
+    )
     socket.on('disconnect',()=>{
             console.log('User Just disconnected');
     })
@@ -21,6 +25,11 @@ io.on('connection',(socket)=>{
 app.use(router);
 
 
-server.listen(PORT, ()=>{
+server.on('listening', ()=>{
     console.log(`Server has running on port ${PORT}`);
 });
+
+server.listen(PORT);
+
+
+//kill -9 $(lsof -t -i:3000);
